@@ -37,7 +37,7 @@ class music(commands.Cog):
                 stream = await discord.FFmpegOpusAudio.from_probe(url2, **FFMPEG_OPTIONS)  # Creates audio stream
                 voice_channel.play(stream)  # Plays stream in voice chat
             except DownloadError:
-                pass
+                await ctx.send("Please use a valid youtube link.")
 
 
     @commands.command()
