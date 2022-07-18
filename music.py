@@ -17,6 +17,7 @@ class music(commands.Cog):
             await voice_channel.connect()
         else:
             await ctx.voice_client.move_to(voice_channel)
+        await ctx.guild.change_voice_state(channel=voice_channel, self_deaf=True)
 
     @commands.command()
     async def disconnect(self, ctx):
