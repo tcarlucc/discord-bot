@@ -22,5 +22,3 @@ class audioprocessor(object):
             history += "\n" + self.playlist.history.index(song) + song
 
         return history
-
-    async def play_song(self, song):

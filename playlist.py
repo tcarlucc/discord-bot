@@ -14,6 +14,9 @@ class Playlist:
     def add(self, track):
         self.queue.append(track)
 
+    def playnext(self, track):
+        self.queue.appendleft(track)
+
     def shuffle(self):
         random.shuffle(self.queue)
 
