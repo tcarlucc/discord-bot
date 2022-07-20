@@ -23,3 +23,19 @@ class Playlist:
     def clear(self):
         self.queue.clear()
         self.history.clear()
+
+    def next(self, song):
+        if self.loop:
+            self.queue.appendleft(self.history[-1])
+
+        if len(self.queue) == 0:
+            return None
+
+        if song != "Dummy":
+            if len(self.history) > config.MAX_HISTORY:
+                self.history.popleft()
+
+        return self.queue
+
+
+

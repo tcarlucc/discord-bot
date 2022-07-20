@@ -2,6 +2,7 @@
 
 PREFIX = '$'
 TIMEOUT = 600  # seconds
+MAX_HISTORY = 50
 
 # HEADERS
 
