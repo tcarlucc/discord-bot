@@ -1,5 +1,7 @@
 import config
+import linkprocessor
 import utilities
+import youtube_dl
 
 from playlist import Playlist
 
@@ -25,6 +27,26 @@ class audioprocessor(object):
             history += "\n" + self.playlist.history.index(song) + song
 
         return history
+
+    def youtube_search(self, msg):
+        if linkprocessor.get_url(msg) is not None:
+            return msg
+
+        YDL_OPTIONS = {
+            'format': 'bestaudio/best',
+            'default_search': 'auto',
+            'noplaylist': True
+        }
+
+        with youtube_dl.YoutubeDL(YDL_OPTIONS) as ydl:
+            result = ydl.extract_info(msg, download=False)
+
+        if result == None:
+            return None
+
+        videocode = result['entries'][0]['id']
+
+        return "https://www.youtube.com/watch?v={}".format(videocode)
 
     def stop(self):
         if self.guild.voice_client is None or (not self.guild.voice_client.is_paused() and
