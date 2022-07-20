@@ -1,5 +1,6 @@
-PREFIX = '$'
+# SETTINGS
 
+PREFIX = '$'
 TIMEOUT = 600  # seconds
 
 # HEADERS

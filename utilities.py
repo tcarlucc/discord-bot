@@ -1,3 +1,4 @@
+import asyncio
 import config
 
 async def send_message(ctx, message):
@@ -34,3 +35,15 @@ async def connect(guild, dest_channel, ctx, switch=False, default=True):
             await guild.voice_channels[0].connect()
         except:
             await send_message(ctx, config.DEFAULT_VC_ERROR)
+
+class Timer:
+    def __init__(self, callback):
+        self.callback = callback
+        self.task = asyncio.create_task(self.job())
+
+    async def job(self):
+        await asyncio.sleep(config.TIMEOUT)
+        await self.callback()
+
+    def stop(self):
+        self.task.cancel()
