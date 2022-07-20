@@ -1,5 +1,6 @@
 import discord
 import youtube_dl
+import utilities
 from discord.ext import commands
 from youtube_dl import DownloadError
 
@@ -11,7 +12,7 @@ class music(commands.Cog):
     @commands.command()
     async def join(self, ctx):
         if ctx.author.voice is None:
-            await ctx.send("Please join a voice channel.")
+            await utilities.send_message(ctx, "Please join a voice channel.")
         voice_channel = ctx.author.voice.channel
         if ctx.voice_client is None:
             await voice_channel.connect()
@@ -41,7 +42,7 @@ class music(commands.Cog):
                 stream = await discord.FFmpegOpusAudio.from_probe(url2, **FFMPEG_OPTIONS)  # Creates audio stream
                 voice_channel.play(stream)  # Plays stream in voice chat
             except DownloadError:
-                await ctx.send("Please use a valid youtube link.")
+                await utilities.send_message(ctx, "Please use a valid youtube link.")
 
 
     @commands.command()
@@ -50,7 +51,7 @@ class music(commands.Cog):
         if voice.is_playing():
             voice.pause()
         else:
-            await ctx.send("Nothing is playing.")
+            await utilities.send_message(ctx, "Nothing is playing.")
 
     @commands.command()
     async def resume(self, ctx):
@@ -58,7 +59,7 @@ class music(commands.Cog):
         if voice.is_paused():
             voice.resume()
         else:
-            await ctx.send("Cannot resume music.")
+            await utilities.send_message(ctx, "Cannot resume music.")
 
     @commands.command()
     async def stop(self, ctx):
